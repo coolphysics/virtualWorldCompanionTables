@@ -17,7 +17,8 @@ task main()
   int threshold = 45;       /* found by taking a reading on both DARK and LIGHT    */
                             /* surfaces, adding them together, then dividing by 2. */
 
-
+ while (true)
+	{
     // sensor sees light:
     if(SensorValue(lightSensor) < threshold)
     {
@@ -29,11 +30,14 @@ task main()
     // move back and randomly turn:
     else
     {
-      // counter-steer right:
       motor[leftMotor]  = -55;
       motor[rightMotor] = -55;
-      wait1Msec(50);
-    }
+      wait1Msec(2000);
 
+      motor[leftMotor]  = -random(100);
+      motor[rightMotor] = 55;
+      wait1Msec(1000);
+    }
+	}
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
