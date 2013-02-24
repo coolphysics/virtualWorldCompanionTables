@@ -68,15 +68,15 @@ while(SensorValue(touchSensor) == 0)
 		motor[rightMotor] = 0;
 		wait1Msec(1000);
 
-	//Follow Dark Line for certain distance
+	//Follow Dark Line for certain distance Again to complete lousy linetrack
 	nMotorEncoder[leftMotor] = 0;
 	nMotorEncoder[rightMotor] = 0;
 
-	while(nMotorEncoder[leftMotor] < 1500 && nMotorEncoder[rightMotor] < 1500)
+	while(nMotorEncoder[leftMotor] < 1100 && nMotorEncoder[rightMotor] < 1100)
 	{
 			if (SensorValue(lightSensor) < 45)
 			{
-				//sensor sees light, counter steer left
+				//sensor sees light, counter steer right
 				motor[leftMotor] = 10;
 				motor[rightMotor] = 55;
 
@@ -84,7 +84,7 @@ while(SensorValue(touchSensor) == 0)
 
 			else
 			{
-				//sensor sees dark, counter steer right
+				//sensor sees dark, counter steer left
 				motor[leftMotor] = 55;
 				motor[rightMotor] = 10;
 
@@ -95,9 +95,61 @@ while(SensorValue(touchSensor) == 0)
 		//Stop
 		motor[leftMotor] = 0;
 		motor[rightMotor] = 0;
-		wait1Msec(1000);
+		wait1Msec(500);
+
+		//turn slight left
+		motor[leftMotor] = -60;
+		motor[rightMotor]= 60;
+		wait1Msec(250);
+
+		//Stop
+		motor[leftMotor] = 0;
+		motor[rightMotor] = 0;
+		wait1Msec(500);
 
 
+		//Move foward until bot in front of book
+		while (SensorValue(sonarSensor) > 15)
+		{
+			motor[leftMotor] = 50;
+			motor[rightMotor] = 50;
+		}
+		motor[leftMotor] = 0;
+		motor[rightMotor] = 0;
+		wait1Msec(500);
+
+
+		//turn right
+		motor[leftMotor] = 60;
+		motor[rightMotor]= -60;
+		wait1Msec(600);
+
+		motor[leftMotor] = 0;
+		motor[rightMotor] = 0;
+		wait1Msec(500);
+
+		SensorValue(sonarSensor) = 30;
+
+		//Move foward until bot in front of book
+		while (SensorValue(sonarSensor) > 15)
+		{
+			motor[leftMotor] = 50;
+			motor[rightMotor] = 50;
+		}
+		motor[leftMotor] = 0;
+		motor[rightMotor] = 0;
+		wait1Msec(500);
+
+		/*move foward
+		motor[leftMotor] = 60;
+		motor[rightMotor]= 60;
+		wait1Msec(2300);*/
+
+
+		//turn right
+		motor[leftMotor] = 60;
+		motor[rightMotor]= -60;
+		wait1Msec(700);
 
 
 }
